@@ -1,0 +1,74 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Azure Search</h1>
+    <p class="lead">Modern Ops</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="input-group mb-3">
+    <input type="text" (keydown)="keyDownFunction($event, query)" class="form-control" placeholder="Search..." [(ngModel)]="query">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button" (click)="press(query)">Search</button>
+    </div>
+  </div>
+  <br>
+<!-- <ng-container *ngIf="kp">
+  <h1>
+    Key Phrases
+  </h1>
+  <table class="table table-hover">  
+  <tbody>  
+    <tr *ngFor="let item of kp">
+      <td>{{item}}</td>
+    </tr>
+  </tbody>
+</table>
+</ng-container> -->
+<ng-container *ngIf="incident">
+  <h1>
+    Similar Incidents
+  </h1>
+  <table class="table table-hover">  
+  <thead>
+    <tr>
+      <th>Incident #</th> 
+      <th>Category: Subcategory</th> 
+      <th>Short Description</th> 
+      <th>Close Notes</th> 
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>  
+    <tr *ngFor="let item of incident">
+      <td>{{item.number}}</td>
+      <td>{{item.category}}: {{item.subcategory}}</td>
+      <td>{{item.short_description}}</td>
+      <td>{{item.close_notes}}</td>
+      <td>{{item['@search.score']}}</td> 
+    </tr>
+  </tbody>
+</table>
+</ng-container>
+<ng-container *ngIf="kb">
+  <h1>
+      Knowledge Base Articles
+  </h1>
+  <table class="table table-hover">    
+    <thead>
+      <tr>
+        <th>Author</th> 
+        <th>Title</th> 
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of kb">
+      <tr ng-if="item['@search.score']">    
+        <td>{{item.metadata_author}}</td>
+        <td><a href="https://searchdatabase.blob.core.windows.net/kbarticles/{{item.metadata_storage_name}}?sv=2018-03-28&ss=bfqt&srt=sco&sp=r&se=2019-06-28T18:59:20Z&st=2019-06-28T10:59:20Z&spr=https,http&sig=wZNq%2Bw7N60VCcitRojZC4M1YY4Y%2FDl4ZST6goiv%2FQCg%3D" target="_blank">{{item.metadata_storage_name}}</a></td>
+        <td>{{item['@search.score']}}</td> 
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+</div>
